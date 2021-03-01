@@ -24,6 +24,7 @@ services:
       DATABASE_USERNAME: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
+      KAFKA_HOST: kafka
     ports:
       - "${APP_PORT}:3000"
     networks:
