@@ -2,9 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-
-console.log(process.env.DATABASE_HOST);
+import { AuthModule } from './features/auth/auth.module';
+import { UserAccounts } from './features/user-accounts/user-accounts.entity';
 
 @Module({
   imports: [
@@ -23,6 +22,7 @@ console.log(process.env.DATABASE_HOST);
       },
       logging: 'all',
     }),
+    TypeOrmModule.forFeature([UserAccounts]),
     AuthModule,
   ],
   controllers: [AppController],
