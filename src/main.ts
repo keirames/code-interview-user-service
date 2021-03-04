@@ -12,18 +12,18 @@ async function bootstrap(): Promise<void> {
   });
 
   // Microservice kafka
-  const microserviceKafka = app.connectMicroservice({
-    transport: Transport.KAFKA,
-    options: {
-      client: {
-        clientId: 'hero',
-        brokers: [`${process.env.KAFKA_HOST}:9092`],
-      },
-      consumer: {
-        groupId: 'hero-consumer',
-      },
-    },
-  });
+  // const microserviceKafka = app.connectMicroservice({
+  //   transport: Transport.KAFKA,
+  //   options: {
+  //     client: {
+  //       clientId: 'hero',
+  //       brokers: [`${process.env.KAFKA_HOST}:9092`],
+  //     },
+  //     consumer: {
+  //       groupId: 'hero-consumer',
+  //     },
+  //   },
+  // });
 
   await app.startAllMicroservicesAsync();
   await app.listen(3000);

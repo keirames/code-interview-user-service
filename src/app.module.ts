@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './features/auth/auth.module';
-import { UserAccount } from './features/user-accounts/user-account.entity';
+import { UserAccountsModule } from './features/user-accounts/user-accounts.module';
 
 @Module({
   imports: [
@@ -22,8 +22,8 @@ import { UserAccount } from './features/user-accounts/user-account.entity';
       },
       logging: 'all',
     }),
-    TypeOrmModule.forFeature([UserAccount]),
     AuthModule,
+    UserAccountsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
