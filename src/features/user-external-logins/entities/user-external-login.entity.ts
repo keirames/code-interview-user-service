@@ -1,4 +1,5 @@
-import { ExternalAuthenticationProvider } from 'src/features/external-authentication-providers/entity/external-authentication-provider.entity';
+import { ExternalAuthenticationProvider } from 'src/features/external-authentication-providers/entities/external-authentication-provider.entity';
+import { User } from 'src/features/users/entities';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -32,11 +33,11 @@ export class UserExternalLogin {
   @Column({ name: 'external_authentication_provider_id' })
   externalAuthenticationProviderId: number;
 
-  // @ManyToOne(() => User, (user) => user.userExternalLogins, {
-  //   onDelete: 'CASCADE',
-  // })
-  // @JoinColumn({ name: 'user_id' })
-  // user: User;
+  @ManyToOne(() => User, (user) => user.userExternalLogins, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @ManyToOne(
     () => ExternalAuthenticationProvider,

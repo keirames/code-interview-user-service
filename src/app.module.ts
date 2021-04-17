@@ -9,6 +9,8 @@ import { UserExternalLoginsModule } from './features/user-external-logins/user-e
 import { ExternalAuthenticationProvidersService } from './features/external-authentication-providers/external-authentication-providers.service';
 import { ExternalAuthenticationProvidersController } from './features/external-authentication-providers/external-authentication-providers.controller';
 import { ExternalAuthenticationProvidersModule } from './features/external-authentication-providers/external-authentication-providers.module';
+import { UsersModule } from './src/features/users/users.module';
+import { UsersModule } from './features/users/users.module';
 
 @Module({
   imports: [
@@ -31,6 +33,7 @@ import { ExternalAuthenticationProvidersModule } from './features/external-authe
     UserAccountsModule,
     UserExternalLoginsModule,
     ExternalAuthenticationProvidersModule,
+    UsersModule,
   ],
   controllers: [
     AppController,

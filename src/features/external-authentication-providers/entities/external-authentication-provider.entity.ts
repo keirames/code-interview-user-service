@@ -1,4 +1,4 @@
-import { UserExternalLogin } from 'src/features/user-external-logins/entity/user-external-login.entity';
+import { UserExternalLogin } from 'src/features/user-external-logins/entities/user-external-login.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 export enum AuthProvider {
