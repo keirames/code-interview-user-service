@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from 'src/app.controller';
 import { AppService } from 'src/app.service';
@@ -10,24 +11,12 @@ import { UserAccountsModule } from 'src/features/user-accounts/user-accounts.mod
 import { UserExternalLoginsController } from 'src/features/user-external-logins/user-external-logins.controller';
 import { UserExternalLoginsModule } from 'src/features/user-external-logins/user-external-logins.module';
 import { UsersModule } from 'src/features/users/users.module';
+import TypeormConfig from '../ormconfig';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      migrationsTableName: 'migration',
-      migrations: ['dist/migration/*.js'],
-      cli: {
-        migrationsDir: 'src/migration',
-      },
-      logging: 'all',
-    }),
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(TypeormConfig),
     AuthModule,
     UserAccountsModule,
     UserExternalLoginsModule,

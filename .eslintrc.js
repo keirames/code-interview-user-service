@@ -16,13 +16,12 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'src/migration/*.ts'],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': ['warn'],
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': ['warn'],
     '@typescript-eslint/no-explicit-any': ['warn'],
-    'import/prefer-default-export': 'off',
-    'class-methods-use-this': 'warn',
+    'import/prefer-default-export': ['warn'],
+    'class-methods-use-this': ['warn'],
   },
 };
