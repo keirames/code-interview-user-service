@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       DB: ${DATABASE_NAME}
     ports:
-      - "${DATABASE_PORT}"
+      - '1234:${DATABASE_PORT}'
     networks:
       - default
     volumes:
@@ -26,14 +26,14 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
       KAFKA_HOST: kafka
     ports:
-      - "${APP_PORT}:3000"
+      - '${APP_PORT}:3000'
     networks:
       - default
       - network-topic-channel
     volumes:
-      - ".:/app"
-      - "/app/node_modules"
-      - "/app/dist"
+      - '.:/app'
+      - '/app/node_modules'
+      - '/app/dist'
 volumes:
   auth-service-database-data: {}
 networks:
