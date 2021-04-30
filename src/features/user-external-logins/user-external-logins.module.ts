@@ -4,4 +4,4 @@ import { UserExternalLoginsService } from './user-external-logins.service';
 @Module({
   providers: [UserExternalLoginsService],
 })
-export class UserExternalLoginsModule {}
+export default class UserExternalLoginsModule {}

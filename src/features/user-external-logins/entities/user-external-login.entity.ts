@@ -11,7 +11,7 @@ import {
 
 @Entity('user_external_logins')
 @Unique(['externalUserId', 'externalAuthenticationProviderId'])
-export class UserExternalLogin {
+export default class UserExternalLogin {
   @PrimaryGeneratedColumn()
   id: number;
 

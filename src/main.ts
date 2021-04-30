@@ -1,15 +1,15 @@
 import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
-import { AppModule } from './app.module';
+// import { Transport } from '@nestjs/microservices';
+import AppModule from 'src/app.module';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
 
   // Microservice TCP
-  const microserviceTCP = app.connectMicroservice({
-    transport: Transport.TCP,
-    options: { host: '0.0.0.0', port: 3001 },
-  });
+  // const microserviceTCP = app.connectMicroservice({
+  //   transport: Transport.TCP,
+  //   options: { host: '0.0.0.0', port: 3001 },
+  // });
 
   // Microservice kafka
   // const microserviceKafka = app.connectMicroservice({
@@ -27,6 +27,5 @@ async function bootstrap(): Promise<void> {
 
   await app.startAllMicroservicesAsync();
   await app.listen(3000);
-  console.log(`Listening on port ${3000}`);
 }
 bootstrap();

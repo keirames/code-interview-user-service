@@ -1,4 +1,4 @@
-import { UserExternalLogin } from 'src/features/user-external-logins/entities/user-external-login.entity';
+import { UserExternalLogin } from 'src/features/user-external-logins/entities';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 export enum AuthProvider {
@@ -8,7 +8,7 @@ export enum AuthProvider {
 }
 
 @Entity('external_authentication_providers')
-export class ExternalAuthenticationProvider {
+export default class ExternalAuthenticationProvider {
   @PrimaryGeneratedColumn()
   id: number;
 
