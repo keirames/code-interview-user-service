@@ -4,7 +4,7 @@ import { UserAccount } from 'src/features/user-accounts/entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export default class UserAccountsService {
+export class UserAccountsService {
   constructor(
     @InjectRepository(UserAccount)
     private readonly userAccountsRepository: Repository<UserAccount>,

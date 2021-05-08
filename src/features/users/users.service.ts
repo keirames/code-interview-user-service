@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export default class UsersService {
+export class UsersService {
   // create(createUserDto: CreateUserDto) {
   //   return 'This action adds a new user';
   // }

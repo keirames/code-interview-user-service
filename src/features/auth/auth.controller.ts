@@ -1,9 +1,9 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import UserAccountsService from '../user-accounts/user-accounts.service';
+import { UserAccountsService } from 'src/features/user-accounts/user-accounts.service';
 
 @Controller()
-export default class AuthController {
+export class AuthController {
   constructor(private readonly userAccountsService: UserAccountsService) {}
 
   @MessagePattern({ cmd: 'validateUser' })

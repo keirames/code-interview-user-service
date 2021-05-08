@@ -22,7 +22,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': ['warn'],
     '@typescript-eslint/no-explicit-any': ['warn'],
 
-    'import/prefer-default-export': ['warn'],
+    'import/prefer-default-export': ['off'],
 
     'class-methods-use-this': ['warn'],
   },

@@ -8,7 +8,7 @@ export enum AuthProvider {
 }
 
 @Entity('external_authentication_providers')
-export default class ExternalAuthenticationProvider {
+export class ExternalAuthenticationProvider {
   @PrimaryGeneratedColumn()
   id: number;
 
