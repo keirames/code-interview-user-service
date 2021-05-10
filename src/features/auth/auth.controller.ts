@@ -8,7 +8,14 @@ export class AuthController {
 
   @MessagePattern({ cmd: 'validateUser' })
   async validateUser(email: string): Promise<boolean> {
-    const isValid = this.userAccountsService.isEmailAlreadyTaken(email);
-    return isValid;
+    const isEmailValid = await this.userAccountsService.isEmailAlreadyTaken(
+      email,
+    );
+    return isEmailValid;
+  }
+
+  @MessagePattern({ cmd: 'signInWithExternalProvider' })
+  async signInWithExternalProvider() {
+    return { name: 'hehe' };
   }
 }
