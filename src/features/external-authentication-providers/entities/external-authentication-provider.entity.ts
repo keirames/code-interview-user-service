@@ -10,18 +10,14 @@ export enum AuthProvider {
 @Entity('external_authentication_providers')
 export class ExternalAuthenticationProvider {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column({ type: 'character varying', length: 25 })
-  name: AuthProvider;
+  name!: AuthProvider;
 
   @OneToMany(
     () => UserExternalLogin,
     (userExternalLogin) => userExternalLogin.externalAuthenticationProvider,
   )
-  userExternalLogins: UserExternalLogin[];
-
-  constructor(params: { name: AuthProvider }) {
-    if (params !== undefined) this.name = params.name;
-  }
+  userExternalLogins?: UserExternalLogin[];
 }

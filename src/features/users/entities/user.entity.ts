@@ -13,11 +13,11 @@ import {
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column({ name: 'total_points', default: 0 })
   @Check('total_points >= 0')
-  totalPoints: number;
+  totalPoints?: number;
 
   @Column({ name: 'first_name', length: 25, default: '' })
   firstName?: string;
@@ -26,10 +26,10 @@ export class User {
   lastName?: string;
 
   @Column({ name: 'is_activated', type: 'boolean', default: false })
-  isActivated: boolean;
+  isActivated?: boolean;
 
   @Column({ name: 'user_account_id', nullable: true })
-  userAccountId: number;
+  userAccountId?: number;
 
   @OneToOne(() => UserAccount, { nullable: true, cascade: true })
   @JoinColumn({ name: 'user_account_id' })
@@ -40,5 +40,5 @@ export class User {
     (userExternalLogin) => userExternalLogin.user,
     { cascade: true, onDelete: 'CASCADE' },
   )
-  userExternalLogins: UserExternalLogin[];
+  userExternalLogins!: UserExternalLogin[];
 }

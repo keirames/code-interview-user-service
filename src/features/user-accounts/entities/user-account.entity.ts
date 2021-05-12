@@ -3,13 +3,13 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('user_accounts')
 export class UserAccount {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column({ length: 255, unique: true })
-  email: string;
+  email!: string;
 
   @Column({ length: 255 })
-  password: string;
+  password!: string;
 
   @Column({
     name: 'registration_time',
@@ -17,16 +17,4 @@ export class UserAccount {
     default: () => 'CURRENT_TIMESTAMP',
   })
   registrationTime?: Date;
-
-  constructor(params: {
-    email: string;
-    password: string;
-    registrationTime?: Date;
-  }) {
-    if (params !== undefined) {
-      this.email = params.email;
-      this.password = params.password;
-      this.registrationTime = params.registrationTime;
-    }
-  }
 }
