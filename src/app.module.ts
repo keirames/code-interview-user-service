@@ -12,6 +12,10 @@ import { UserExternalLoginsController } from 'src/features/user-external-logins/
 import { UserExternalLoginsModule } from 'src/features/user-external-logins/user-external-logins.module';
 import { UsersModule } from 'src/features/users/users.module';
 import TypeormConfig from '../ormconfig';
+import { SubscriptionsModule } from './features/subscriptions/subscriptions.module';
+import { ChallengesModule } from './features/challenges/challenges.module';
+import { ContestsModule } from './features/contests/contests.module';
+import { SubmissionsModule } from './features/submissions/submissions.module';
 
 @Module({
   imports: [
@@ -22,6 +26,10 @@ import TypeormConfig from '../ormconfig';
     UserExternalLoginsModule,
     ExternalAuthenticationProvidersModule,
     UsersModule,
+    SubscriptionsModule,
+    ChallengesModule,
+    ContestsModule,
+    SubmissionsModule,
   ],
   controllers: [
     AppController,

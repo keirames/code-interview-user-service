@@ -4,11 +4,11 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['@typescript-eslint'],
   extends: [
     'airbnb-typescript/base',
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
   ],
   root: true,
@@ -23,6 +23,20 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': ['warn'],
 
     'import/prefer-default-export': ['off'],
+    // Absolute src path is ordered same as normal relative path
+    'import/order': [
+      'error',
+      {
+        pathGroups: [
+          {
+            pattern: 'src/**',
+            group: 'external',
+            position: 'after',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['builtin'],
+      },
+    ],
 
     'class-methods-use-this': ['warn'],
   },

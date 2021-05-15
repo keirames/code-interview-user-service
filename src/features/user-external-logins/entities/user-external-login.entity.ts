@@ -1,5 +1,3 @@
-import { ExternalAuthenticationProvider } from 'src/features/external-authentication-providers/entities/external-authentication-provider.entity';
-import { User } from 'src/features/users/entities';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,8 +6,10 @@ import {
   JoinColumn,
   Unique,
 } from 'typeorm';
+import { ExternalAuthenticationProvider } from 'src/features/external-authentication-providers/entities/external-authentication-provider.entity';
+import { User } from 'src/features/users/entities';
 
-@Entity('user_external_logins')
+@Entity({ name: 'user_external_logins' })
 @Unique(['externalUserId', 'externalAuthenticationProviderId'])
 export class UserExternalLogin {
   @PrimaryGeneratedColumn()

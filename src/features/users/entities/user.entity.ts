@@ -1,5 +1,3 @@
-import { UserAccount } from 'src/features/user-accounts/entities';
-import { UserExternalLogin } from 'src/features/user-external-logins/entities';
 import {
   Check,
   Column,
@@ -9,8 +7,12 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Subscription } from 'src/features/subscriptions/entities';
+import { UserAccount } from 'src/features/user-accounts/entities';
+import { UserExternalLogin } from 'src/features/user-external-logins/entities';
+import { Submission } from 'src/features/submissions/entities/submission.entity';
 
-@Entity('users')
+@Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
   id?: number;
@@ -41,4 +43,10 @@ export class User {
     { cascade: true, onDelete: 'CASCADE' },
   )
   userExternalLogins!: UserExternalLogin[];
+
+  @OneToMany(() => Subscription, (subscription) => subscription.user)
+  subscriptions!: Subscription[];
+
+  @OneToMany(() => Submission, (submission) => submission.user)
+  submissions!: Submission[];
 }

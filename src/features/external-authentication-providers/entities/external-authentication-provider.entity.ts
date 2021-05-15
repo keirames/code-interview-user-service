@@ -1,5 +1,5 @@
-import { UserExternalLogin } from 'src/features/user-external-logins/entities';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { UserExternalLogin } from 'src/features/user-external-logins/entities';
 
 export enum AuthProvider {
   GOOGLE = 'google',
@@ -7,7 +7,7 @@ export enum AuthProvider {
   GITHUB = 'github',
 }
 
-@Entity('external_authentication_providers')
+@Entity({ name: 'external_authentication_providers' })
 export class ExternalAuthenticationProvider {
   @PrimaryGeneratedColumn()
   id?: number;

@@ -37,4 +37,5 @@ async function bootstrap(): Promise<void> {
     console.log('UserService microservice is listening on 3002'),
   );
 }
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 bootstrap();

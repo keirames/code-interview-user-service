@@ -15,7 +15,7 @@ export class AuthController {
   }
 
   @MessagePattern({ cmd: 'signInWithExternalProvider' })
-  async signInWithExternalProvider() {
+  signInWithExternalProvider() {
     return { name: 'hehe' };
   }
 }
