@@ -1,11 +1,18 @@
 import {
   Check,
   Column,
+  DeleteDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Submission } from 'src/features/submissions/entities/submission.entity';
+import { Submission } from 'src/features/submissions/entities';
+import { TestCase } from 'src/features/test-cases/entities';
+import { ModifyTime, SubjectIdentifier } from 'src/common/entities';
+import { Contest } from 'src/features/contests/entities';
+import { SolvedChallenge } from 'src/features/challenges/entities/solved-challenge.entity';
+import { LikedChallenge } from 'src/features/challenges/entities/liked-challenge.entity';
 
 // ? May be put this into another file ?.
 export enum Level {
@@ -19,11 +26,8 @@ export class Challenge {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ name: 'title', length: 25, unique: true })
-  title!: string;
-
-  @Column({ name: 'slug', length: 50, unique: true })
-  slug!: string;
+  @Column(() => SubjectIdentifier)
+  subjectIdentifier!: SubjectIdentifier;
 
   @Column({ name: 'problem', type: 'text' })
   problem!: string;
@@ -47,9 +51,30 @@ export class Challenge {
   @Column({ name: 'is_premium', default: false })
   isPremium?: boolean;
 
+  @Column(() => ModifyTime)
+  modifyTime?: ModifyTime;
+
+  @DeleteDateColumn({ name: 'delete_at' })
+  delete_at?: Date;
+
   @OneToMany(() => Submission, (submission) => submission.challenge)
   submissions!: Submission[];
 
-  // @Column({ name: 'contest_id' })
-  // contestId: number;
+  @OneToMany(() => TestCase, (testCase) => testCase.challenge, { eager: true })
+  testCases!: TestCase[];
+
+  @Column({ name: 'contest_id' })
+  contestId!: number;
+
+  @ManyToOne(() => Contest, (contest) => contest.challenges)
+  contest!: Contest;
+
+  @OneToMany(
+    () => SolvedChallenge,
+    (solvedChallenge) => solvedChallenge.challenge,
+  )
+  solvedUser!: SolvedChallenge;
+
+  @OneToMany(() => LikedChallenge, (likedChallenge) => likedChallenge.challenge)
+  likedUser!: LikedChallenge;
 }

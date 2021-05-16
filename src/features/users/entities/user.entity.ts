@@ -10,7 +10,11 @@ import {
 import { Subscription } from 'src/features/subscriptions/entities';
 import { UserAccount } from 'src/features/user-accounts/entities';
 import { UserExternalLogin } from 'src/features/user-external-logins/entities';
-import { Submission } from 'src/features/submissions/entities/submission.entity';
+import { Submission } from 'src/features/submissions/entities';
+import {
+  LikedChallenge,
+  SolvedChallenge,
+} from 'src/features/challenges/entities';
 
 @Entity({ name: 'users' })
 export class User {
@@ -49,4 +53,10 @@ export class User {
 
   @OneToMany(() => Submission, (submission) => submission.user)
   submissions!: Submission[];
+
+  @OneToMany(() => LikedChallenge, (likedChallenge) => likedChallenge.user)
+  likedChallenge!: LikedChallenge[];
+
+  @OneToMany(() => SolvedChallenge, (solvedChallenge) => solvedChallenge.user)
+  solvedChallenge!: SolvedChallenge[];
 }

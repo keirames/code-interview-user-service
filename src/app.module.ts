@@ -11,11 +11,12 @@ import { UserAccountsModule } from 'src/features/user-accounts/user-accounts.mod
 import { UserExternalLoginsController } from 'src/features/user-external-logins/user-external-logins.controller';
 import { UserExternalLoginsModule } from 'src/features/user-external-logins/user-external-logins.module';
 import { UsersModule } from 'src/features/users/users.module';
+import { TestCasesModule } from 'src/features/test-cases/test-cases.module';
+import { SubscriptionsModule } from 'src/features/subscriptions/subscriptions.module';
+import { ChallengesModule } from 'src/features/challenges/challenges.module';
+import { ContestsModule } from 'src/features/contests/contests.module';
+import { SubmissionsModule } from 'src/features/submissions/submissions.module';
 import TypeormConfig from '../ormconfig';
-import { SubscriptionsModule } from './features/subscriptions/subscriptions.module';
-import { ChallengesModule } from './features/challenges/challenges.module';
-import { ContestsModule } from './features/contests/contests.module';
-import { SubmissionsModule } from './features/submissions/submissions.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { SubmissionsModule } from './features/submissions/submissions.module';
     ChallengesModule,
     ContestsModule,
     SubmissionsModule,
+    TestCasesModule,
   ],
   controllers: [
     AppController,

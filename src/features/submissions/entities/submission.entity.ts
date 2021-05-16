@@ -1,7 +1,8 @@
-import { Column, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Challenge } from 'src/features/challenges/entities';
 import { User } from 'src/features/users/entities';
 
+@Entity({ name: 'submissions' })
 export class Submission {
   @PrimaryGeneratedColumn()
   id?: number;
