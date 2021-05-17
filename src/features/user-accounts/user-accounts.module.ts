@@ -6,6 +6,6 @@ import { UserAccountsService } from 'src/features/user-accounts/user-accounts.se
 @Module({
   imports: [TypeOrmModule.forFeature([UserAccountsRepository])],
   providers: [UserAccountsService],
-  exports: [UserAccountsService],
+  exports: [UserAccountsService, TypeOrmModule],
 })
 export class UserAccountsModule {}

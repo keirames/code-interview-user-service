@@ -1,10 +1,15 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
+import { AuthProvider } from 'src/common/enums';
+import { AuthService } from 'src/features/auth/auth.service';
 import { UserAccountsService } from 'src/features/user-accounts/user-accounts.service';
 
 @Controller()
 export class AuthController {
-  constructor(private readonly userAccountsService: UserAccountsService) {}
+  constructor(
+    private readonly userAccountsService: UserAccountsService,
+    private readonly authService: AuthService,
+  ) {}
 
   @MessagePattern({ cmd: 'validateUser' })
   async validateUser(email: string): Promise<boolean> {
@@ -15,7 +20,8 @@ export class AuthController {
   }
 
   @MessagePattern({ cmd: 'signInWithExternalProvider' })
-  signInWithExternalProvider() {
-    return { name: 'hehe' };
+  async signInWithExternalProvider() {
+    await this.authService.signInWithExternalProvider(AuthProvider.Google);
+    return { name: 'hehe', id: 1 };
   }
 }
