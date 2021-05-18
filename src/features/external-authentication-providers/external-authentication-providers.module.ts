@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ExternalAuthenticationProvider } from 'src/features/external-authentication-providers/entities';
 import { ExternalAuthenticationProvidersService } from 'src/features/external-authentication-providers/external-authentication-providers.service';
+import { ExternalAuthenticationProvidersRepository } from 'src/features/external-authentication-providers/repositories';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ExternalAuthenticationProvider])],
+  imports: [
+    TypeOrmModule.forFeature([ExternalAuthenticationProvidersRepository]),
+  ],
   providers: [ExternalAuthenticationProvidersService],
-  exports: [ExternalAuthenticationProvidersService],
+  exports: [ExternalAuthenticationProvidersService, TypeOrmModule],
 })
 export class ExternalAuthenticationProvidersModule {}
