@@ -7,7 +7,7 @@ export class ExternalAuthenticationProvider {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ type: 'character varying', length: 25, unique: true })
+  @Column({ name: 'name', type: 'character varying', length: 25, unique: true })
   name!: AuthProvider;
 
   @OneToMany(

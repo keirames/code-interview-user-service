@@ -1,20 +1,20 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, FindOneOptions, Repository } from 'typeorm';
 import { ExternalAuthenticationProvider } from 'src/features/external-authentication-providers/entities';
 import { AuthProvider } from 'src/common/enums';
 
 @EntityRepository(ExternalAuthenticationProvider)
 export class ExternalAuthenticationProvidersRepository extends Repository<ExternalAuthenticationProvider> {
-  findById(id: number): Promise<ExternalAuthenticationProvider | undefined> {
-    return this.findOne({
-      where: { id },
-    });
+  findById(
+    id: number,
+    options: FindOneOptions = {},
+  ): Promise<ExternalAuthenticationProvider | undefined> {
+    return this.findOne({ id }, options);
   }
 
   findByName(
     name: AuthProvider,
+    options: FindOneOptions = {},
   ): Promise<ExternalAuthenticationProvider | undefined> {
-    return this.findOne({
-      where: { name },
-    });
+    return this.findOne({ name }, options);
   }
 }

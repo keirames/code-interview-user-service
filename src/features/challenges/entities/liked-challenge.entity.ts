@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from 'src/features/users/entities';
 import { Challenge } from 'src/features/challenges/entities/challenge.entity';
 
@@ -11,11 +17,13 @@ export class LikedChallenge {
   userId!: number;
 
   @ManyToOne(() => User, (user) => user.likedChallenge)
+  @JoinColumn({ name: 'user_id' })
   user!: User;
 
   @Column({ name: 'challenge_id' })
   challengeId!: number;
 
   @ManyToOne(() => Challenge, (challenge) => challenge.likedUser)
+  @JoinColumn({ name: 'challenge_id' })
   challenge!: Challenge;
 }

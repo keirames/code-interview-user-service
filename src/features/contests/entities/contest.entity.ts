@@ -13,14 +13,14 @@ export class Contest {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column(() => SubjectIdentifier)
+  @Column(() => SubjectIdentifier, { prefix: false })
   subjectIdentifier!: SubjectIdentifier;
 
-  @Column(() => ModifyTime)
+  @Column(() => ModifyTime, { prefix: false })
   modifyTime!: ModifyTime;
 
   @DeleteDateColumn({ name: 'delete_at' })
-  delete_at?: Date;
+  deleteAt?: Date;
 
   @OneToMany(() => Challenge, (challenge) => challenge.contest)
   challenges!: Challenge[];

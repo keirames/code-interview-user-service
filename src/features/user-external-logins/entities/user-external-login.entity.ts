@@ -15,10 +15,10 @@ export class UserExternalLogin {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ length: 255, name: 'external_user_id' })
+  @Column({ name: 'external_user_id', length: 255 })
   externalUserId!: string;
 
-  @Column({ length: 255, nullable: true })
+  @Column({ name: 'email', length: 255, nullable: true })
   email?: string;
 
   @Column({ name: 'name', length: 255, nullable: true })
@@ -27,14 +27,14 @@ export class UserExternalLogin {
   @Column({ name: 'user_id' })
   userId?: number;
 
-  @Column({ name: 'external_authentication_provider_id' })
-  externalAuthenticationProviderId!: number;
-
   @ManyToOne(() => User, (user) => user.userExternalLogins, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
   user?: User;
+
+  @Column({ name: 'external_authentication_provider_id' })
+  externalAuthenticationProviderId!: number;
 
   @ManyToOne(
     () => ExternalAuthenticationProvider,

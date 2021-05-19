@@ -3,6 +3,7 @@ import {
   Column,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -26,7 +27,7 @@ export class Challenge {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column(() => SubjectIdentifier)
+  @Column(() => SubjectIdentifier, { prefix: false })
   subjectIdentifier!: SubjectIdentifier;
 
   @Column({ name: 'problem', type: 'text' })
@@ -51,11 +52,11 @@ export class Challenge {
   @Column({ name: 'is_premium', default: false })
   isPremium?: boolean;
 
-  @Column(() => ModifyTime)
+  @Column(() => ModifyTime, { prefix: false })
   modifyTime?: ModifyTime;
 
   @DeleteDateColumn({ name: 'delete_at' })
-  delete_at?: Date;
+  deleteAt?: Date;
 
   @OneToMany(() => Submission, (submission) => submission.challenge)
   submissions!: Submission[];
@@ -67,6 +68,7 @@ export class Challenge {
   contestId!: number;
 
   @ManyToOne(() => Contest, (contest) => contest.challenges)
+  @JoinColumn({ name: 'contest_id' })
   contest!: Contest;
 
   @OneToMany(

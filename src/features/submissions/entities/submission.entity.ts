@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Challenge } from 'src/features/challenges/entities';
 import { User } from 'src/features/users/entities';
 
@@ -17,11 +23,13 @@ export class Submission {
   challengeId!: number;
 
   @ManyToOne(() => Challenge, (challenge) => challenge.submissions)
+  @JoinColumn({ name: 'challenge_id' })
   challenge!: Challenge;
 
   @Column({ name: 'user_id' })
   userId!: number;
 
   @ManyToOne(() => User, (user) => user.submissions)
+  @JoinColumn({ name: 'user_id' })
   user!: User;
 }

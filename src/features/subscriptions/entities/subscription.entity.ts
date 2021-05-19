@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Plan } from 'src/features/plans/entities';
 import { User } from 'src/features/users/entities';
 
@@ -17,11 +23,13 @@ export class Subscription {
   planId!: number;
 
   @ManyToOne(() => Plan, (plan) => plan.subscriptions)
+  @JoinColumn({ name: 'plan_id' })
   plan!: Plan;
 
   @Column({ name: 'user_id' })
   userId!: number;
 
   @ManyToOne(() => User, (user) => user.subscriptions)
+  @JoinColumn({ name: 'user_id' })
   user!: User;
 }
