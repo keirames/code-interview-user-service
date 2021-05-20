@@ -11,7 +11,7 @@ services:
       - default
     volumes:
       - ../user-service-database-data:/var/lib/postgresql/data
-      - ./scripts:/docker-entrypoint-initdb.d
+      - ./tools/scripts/database:/docker-entrypoint-initdb.d
   server:
     build:
       context: .
