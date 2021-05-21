@@ -15,8 +15,8 @@ export class TestCase {
   @Column({ name: 'text' })
   text!: string;
 
-  @Column({ name: 'test_brief' })
-  testBrief!: string;
+  @Column({ name: 'test_string' })
+  testString!: string;
 
   @Column({ name: 'challenge_id' })
   challengeId!: number;

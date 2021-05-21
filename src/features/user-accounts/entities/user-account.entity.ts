@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'user_accounts' })
 export class UserAccount {
@@ -11,10 +16,6 @@ export class UserAccount {
   @Column({ name: 'password', length: 255 })
   password!: string;
 
-  @Column({
-    name: 'registration_time',
-    type: 'timestamp with time zone',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @CreateDateColumn({ name: 'registration_time' })
   registrationTime?: Date;
 }
