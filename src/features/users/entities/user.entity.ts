@@ -1,5 +1,3 @@
-import { UserAccount } from 'src/features/user-accounts/entities';
-import { UserExternalLogin } from 'src/features/user-external-logins/entities';
 import {
   Check,
   Column,
@@ -9,15 +7,23 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Subscription } from 'src/features/subscriptions/entities';
+import { UserAccount } from 'src/features/user-accounts/entities';
+import { UserExternalLogin } from 'src/features/user-external-logins/entities';
+import { Submission } from 'src/features/submissions/entities';
+import {
+  LikedChallenge,
+  SolvedChallenge,
+} from 'src/features/challenges/entities';
 
-@Entity('users')
+@Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column({ name: 'total_points', default: 0 })
   @Check('total_points >= 0')
-  totalPoints: number;
+  totalPoints?: number;
 
   @Column({ name: 'first_name', length: 25, default: '' })
   firstName?: string;
@@ -26,10 +32,10 @@ export class User {
   lastName?: string;
 
   @Column({ name: 'is_activated', type: 'boolean', default: false })
-  isActivated: boolean;
+  isActivated?: boolean;
 
   @Column({ name: 'user_account_id', nullable: true })
-  userAccountId: number;
+  userAccountId?: number;
 
   @OneToOne(() => UserAccount, { nullable: true, cascade: true })
   @JoinColumn({ name: 'user_account_id' })
@@ -40,5 +46,17 @@ export class User {
     (userExternalLogin) => userExternalLogin.user,
     { cascade: true, onDelete: 'CASCADE' },
   )
-  userExternalLogins: UserExternalLogin[];
+  userExternalLogins!: UserExternalLogin[];
+
+  @OneToMany(() => Subscription, (subscription) => subscription.user)
+  subscriptions!: Subscription[];
+
+  @OneToMany(() => Submission, (submission) => submission.user)
+  submissions!: Submission[];
+
+  @OneToMany(() => LikedChallenge, (likedChallenge) => likedChallenge.user)
+  likedChallenge!: LikedChallenge[];
+
+  @OneToMany(() => SolvedChallenge, (solvedChallenge) => solvedChallenge.user)
+  solvedChallenge!: SolvedChallenge[];
 }

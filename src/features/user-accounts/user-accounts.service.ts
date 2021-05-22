@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { UserAccount } from 'src/features/user-accounts/entities';
-import { Repository } from 'typeorm';
+import { UserAccountsRepository } from 'src/features/user-accounts/repositories';
 
 @Injectable()
 export class UserAccountsService {
   constructor(
-    @InjectRepository(UserAccount)
-    private readonly userAccountsRepository: Repository<UserAccount>,
+    private readonly userAccountsRepository: UserAccountsRepository,
   ) {}
 
   async findUserAccountByEmail(
@@ -18,6 +16,12 @@ export class UserAccountsService {
   }
 
   async isEmailAlreadyTaken(email: string): Promise<boolean> {
-    return !!this.userAccountsRepository.findOne(email);
+    const user = await this.userAccountsRepository.findOne({
+      where: {
+        email,
+      },
+    });
+
+    return !!user;
   }
 }

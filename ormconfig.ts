@@ -8,10 +8,10 @@ export default {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   entities: ['dist/**/*.entity{.ts,.js}'],
-  migrationsTableName: 'migration',
-  migrations: ['dist/migration/*.js'],
+  migrationsTableName: 'migrations',
+  migrations: ['dist/src/migrations/*.js'],
   cli: {
-    migrationsDir: 'src/migration',
+    migrationsDir: 'src/migrations',
   },
   logging: 'all',
 } as TypeOrmModuleOptions;

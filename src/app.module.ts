@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import AppController from 'src/app.controller';
-import AppService from 'src/app.service';
+import { AppController } from 'src/app.controller';
+import { AppService } from 'src/app.service';
 import { AuthModule } from 'src/features/auth/auth.module';
-import { ExternalAuthenticationProvidersController } from 'src/features/external-authentication-providers/external-authentication-providers.controller';
 import { ExternalAuthenticationProvidersModule } from 'src/features/external-authentication-providers/external-authentication-providers.module';
-import { ExternalAuthenticationProvidersService } from 'src/features/external-authentication-providers/external-authentication-providers.service';
 import { UserAccountsModule } from 'src/features/user-accounts/user-accounts.module';
-import { UserExternalLoginsController } from 'src/features/user-external-logins/user-external-logins.controller';
 import { UserExternalLoginsModule } from 'src/features/user-external-logins/user-external-logins.module';
-import UsersModule from 'src/features/users/users.module';
+import { UsersModule } from 'src/features/users/users.module';
+import { TestCasesModule } from 'src/features/test-cases/test-cases.module';
+import { SubscriptionsModule } from 'src/features/subscriptions/subscriptions.module';
+import { ChallengesModule } from 'src/features/challenges/challenges.module';
+import { ContestsModule } from 'src/features/contests/contests.module';
+import { SubmissionsModule } from 'src/features/submissions/submissions.module';
 import TypeormConfig from '../ormconfig';
 
 @Module({
@@ -22,12 +24,13 @@ import TypeormConfig from '../ormconfig';
     UserExternalLoginsModule,
     ExternalAuthenticationProvidersModule,
     UsersModule,
+    SubscriptionsModule,
+    ChallengesModule,
+    ContestsModule,
+    SubmissionsModule,
+    TestCasesModule,
   ],
-  controllers: [
-    AppController,
-    UserExternalLoginsController,
-    ExternalAuthenticationProvidersController,
-  ],
-  providers: [AppService, ExternalAuthenticationProvidersService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export default class AppModule {}

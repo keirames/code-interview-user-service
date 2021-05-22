@@ -10,8 +10,8 @@ services:
     networks:
       - default
     volumes:
-      - auth-service-database-data:/var/lib/postgresql/data
-      - ./scripts:/docker-entrypoint-initdb.d
+      - ../user-service-database-data:/var/lib/postgresql/data
+      - ./tools/scripts/database:/docker-entrypoint-initdb.d
   server:
     build:
       context: .
@@ -26,16 +26,15 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
       KAFKA_HOST: kafka
     ports:
-      - '${APP_PORT}:3000'
+      - '${APP_PORT}:3001'
     networks:
       - default
       - network-topic-channel
     volumes:
-      - '.:/app'
-      - '/app/node_modules'
-      - '/app/dist'
-volumes:
-  auth-service-database-data: {}
+      - .:/app
+      - /app/node_modules
+      - /app/dist
+volumes: {}
 networks:
   network-topic-channel:
     external:

@@ -1,32 +1,21 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-@Entity('userAccounts')
+@Entity({ name: 'user_accounts' })
 export class UserAccount {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
-  @Column({ length: 255, unique: true })
-  email: string;
+  @Column({ name: 'email', length: 255, unique: true })
+  email!: string;
 
-  @Column({ length: 255 })
-  password: string;
+  @Column({ name: 'password', length: 255 })
+  password!: string;
 
-  @Column({
-    name: 'registration_time',
-    type: 'timestamp with time zone',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @CreateDateColumn({ name: 'registration_time' })
   registrationTime?: Date;
-
-  constructor(params: {
-    email: string;
-    password: string;
-    registrationTime?: Date;
-  }) {
-    if (params !== undefined) {
-      this.email = params.email;
-      this.password = params.password;
-      this.registrationTime = params.registrationTime;
-    }
-  }
 }
