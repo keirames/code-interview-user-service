@@ -34,6 +34,8 @@ async function bootstrap(): Promise<void> {
 
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors({ allowedHeaders: '*' });
+
   await app.listen(3001, () => console.log('Listening on port 3001'));
 }
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
