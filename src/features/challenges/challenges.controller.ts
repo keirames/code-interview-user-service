@@ -2,8 +2,8 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { getPath } from 'src/common/path';
 import { ChallengesService } from 'src/features/challenges/challenges.service';
 import {
-  GetLikedChallengeDto,
-  MarkLikeChallengeDto,
+  GetLikedChallengeResDto,
+  MarkLikeChallengeReqDto,
 } from 'src/features/challenges/dto';
 import { Challenge } from 'src/features/challenges/entities';
 
@@ -19,7 +19,7 @@ export class ChallengesController {
   @Get('/liked-challenges/:userId')
   async getLikedChallenges(
     @Param('userId') userId: number,
-  ): Promise<GetLikedChallengeDto> {
+  ): Promise<GetLikedChallengeResDto> {
     const likedChallenges = await this.challengesService.getLikedChallengesByUserId(
       userId,
     );
@@ -31,7 +31,7 @@ export class ChallengesController {
 
   @Post('/liked-challenges')
   markLikeChallenge(
-    @Body() { challengeId, userId }: MarkLikeChallengeDto,
+    @Body() { challengeId, userId }: MarkLikeChallengeReqDto,
   ): Promise<boolean> {
     return this.challengesService.markLikeChallenge(userId, challengeId);
   }

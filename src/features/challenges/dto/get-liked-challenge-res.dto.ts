@@ -1,3 +1,3 @@
-export type GetLikedChallengeDto = {
+export type GetLikedChallengeResDto = {
   id: number;
 }[];

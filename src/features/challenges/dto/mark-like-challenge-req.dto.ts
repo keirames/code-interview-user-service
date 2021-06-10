@@ -1,4 +1,4 @@
-export interface MarkLikeChallengeDto {
+export interface MarkLikeChallengeReqDto {
   userId: number;
   challengeId: number;
 }
