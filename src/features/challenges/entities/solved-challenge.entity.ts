@@ -16,7 +16,7 @@ export class SolvedChallenge {
   @Column({ name: 'user_id' })
   userId!: number;
 
-  @ManyToOne(() => User, (user) => user.solvedChallenge)
+  @ManyToOne(() => User, (user) => user.solvedChallenges)
   @JoinColumn({ name: 'user_id' })
   user!: User;
 

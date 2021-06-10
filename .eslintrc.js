@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': ['warn'],
     '@typescript-eslint/explicit-module-boundary-types': ['warn'],
     '@typescript-eslint/no-explicit-any': ['warn'],
+    '@typescript-eslint/no-unsafe-return': ['warn'],
 
     'import/prefer-default-export': ['off'],
     // Absolute src path is ordered same as normal relative path

@@ -55,8 +55,8 @@ export class User {
   submissions!: Submission[];
 
   @OneToMany(() => LikedChallenge, (likedChallenge) => likedChallenge.user)
-  likedChallenge!: LikedChallenge[];
+  likedChallenges!: LikedChallenge[];
 
   @OneToMany(() => SolvedChallenge, (solvedChallenge) => solvedChallenge.user)
-  solvedChallenge!: SolvedChallenge[];
+  solvedChallenges!: SolvedChallenge[];
 }

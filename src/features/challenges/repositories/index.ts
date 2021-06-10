@@ -1,1 +1,2 @@
-export { ChallengesRepository } from './challenges.repository';
+export * from './challenges.repository';
+export * from './liked-challenges.repository';
