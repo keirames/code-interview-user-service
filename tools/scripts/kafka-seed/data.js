@@ -13,29 +13,27 @@ const createSeed = async () => {
     console.log('Connected');
 
     const numPartitions = 3;
-    const result = await admin.listTopics();
-    console.log(result);
 
-    // await admin.createTopics({
-    //   topics: [
-    //     {
-    //       topic: 'javascript',
-    //       numPartitions,
-    //     },
-    //     {
-    //       topic: 'java',
-    //       numPartitions,
-    //     },
-    //     {
-    //       topic: 'golang',
-    //       numPartitions,
-    //     },
-    //     {
-    //       topic: 'python',
-    //       numPartitions,
-    //     },
-    //   ],
-    // });
+    await admin.createTopics({
+      topics: [
+        {
+          topic: 'javascript',
+          numPartitions,
+        },
+        {
+          topic: 'java',
+          numPartitions,
+        },
+        {
+          topic: 'golang',
+          numPartitions,
+        },
+        {
+          topic: 'python',
+          numPartitions,
+        },
+      ],
+    });
     console.log(`Create topics successfully!`);
 
     await admin.disconnect();
