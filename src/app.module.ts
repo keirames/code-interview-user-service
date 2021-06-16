@@ -13,7 +13,7 @@ import { SubscriptionsModule } from 'src/features/subscriptions/subscriptions.mo
 import { ChallengesModule } from 'src/features/challenges/challenges.module';
 import { ContestsModule } from 'src/features/contests/contests.module';
 import { SubmissionsModule } from 'src/features/submissions/submissions.module';
-import { JavascriptConsumerModule } from 'src/microservices/javascript-client/javascript-consumer.module';
+import { JavascriptProducerModule } from 'src/microservices/producer/javascript-producer.module';
 import TypeormConfig from '../ormconfig';
 
 @Module({
@@ -30,7 +30,7 @@ import TypeormConfig from '../ormconfig';
     ContestsModule,
     SubmissionsModule,
     TestCasesModule,
-    JavascriptConsumerModule,
+    JavascriptProducerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,23 +1,21 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { JavascriptProducerController } from 'src/microservices/producer/javascript-producer.controller';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'JAVASCRIPT_SERVICE',
+        name: 'CODE_EXECUTOR_EVENTS_PRODUCER',
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'javascript-code-executor',
             brokers: [`${process.env.KAFKA_HOST || ''}:9092`],
-          },
-          consumer: {
-            groupId: 'javascript',
           },
         },
       },
     ]),
   ],
+  controllers: [JavascriptProducerController],
 })
-export class JavascriptConsumerModule {}
+export class JavascriptProducerModule {}

@@ -9,6 +9,8 @@ async function bootstrap(): Promise<void> {
   // Enable cors middleware
   app.enableCors({ allowedHeaders: '*' });
 
+  await app.listen(3001, () => console.log('Listening on 3002'));
+
   // Microservice TCP
   // const microserviceTCP = app.connectMicroservice({
   //   transport: Transport.TCP,
@@ -16,22 +18,23 @@ async function bootstrap(): Promise<void> {
   // });
 
   // Microservice kafka
-  const microserviceKafka = {
-    transport: Transport.KAFKA,
-    options: {
-      client: {
-        client: 'master-producer',
-        brokers: [`${process.env.KAFKA_HOST || ''}:9092`],
-      },
-      consumer: {
-        groupId: 'javascript',
-      },
-    },
-  };
-  app.connectMicroservice(microserviceKafka);
+  // const microserviceKafka = {
+  //   name: 'CODE_EXECUTE_EVENTS',
+  //   transport: Transport.KAFKA,
+  //   options: {
+  //     client: {
+  //       client: 'master-producer',
+  //       brokers: [`${process.env.KAFKA_HOST || ''}:9092`],
+  //     },
+  //     consumer: {
+  //       groupId: 'javascript',
+  //     },
+  //   },
+  // };
+  // app.connectMicroservice(microserviceKafka);
 
-  await app.startAllMicroservicesAsync();
-  await app.listen(3001);
+  // await app.startAllMicroservicesAsync();
+  // await app.listen(3001);
   // const app = await NestFactory.createMicroservice<MicroserviceOptions>(
   //   AppModule,
   //   { transport: Transport.TCP, options: { host: '0.0.0.0', port: 3002 } },
