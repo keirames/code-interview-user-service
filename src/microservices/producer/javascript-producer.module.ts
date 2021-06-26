@@ -10,7 +10,7 @@ import { JavascriptProducerController } from 'src/microservices/producer/javascr
         transport: Transport.KAFKA,
         options: {
           client: {
-            brokers: [`${process.env.KAFKA_HOST || ''}:9092`],
+            brokers: [`${process.env.KAFKA_HOST || ''}:39092`],
           },
         },
       },
