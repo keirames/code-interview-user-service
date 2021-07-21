@@ -4,11 +4,28 @@ import AppModule from 'src/app.module';
 
 //  todo: Fix with env
 async function bootstrap(): Promise<void> {
+  // const app = await NestFactory.create(AppModule);
+
+  // // Enable cors middleware
+  // app.enableCors({ allowedHeaders: '*' });
+
+  // await app.listen(3001, () => console.log('Listening on 3002'));
+
   const app = await NestFactory.create(AppModule);
 
   // Enable cors middleware
   app.enableCors({ allowedHeaders: '*' });
 
+  // Redis server for code execute result
+  app.connectMicroservice({
+    name: 'REDIS_SERVICE',
+    transport: Transport.REDIS,
+    options: {
+      url: `redis://${process.env.REDIS_HOST || ''}:6379`,
+    },
+  });
+
+  await app.startAllMicroservicesAsync();
   await app.listen(3001, () => console.log('Listening on 3002'));
 
   // Microservice TCP
