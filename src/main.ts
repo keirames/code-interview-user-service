@@ -4,13 +4,6 @@ import AppModule from 'src/app.module';
 
 //  todo: Fix with env
 async function bootstrap(): Promise<void> {
-  // const app = await NestFactory.create(AppModule);
-
-  // // Enable cors middleware
-  // app.enableCors({ allowedHeaders: '*' });
-
-  // await app.listen(3001, () => console.log('Listening on 3002'));
-
   const app = await NestFactory.create(AppModule);
 
   // Enable cors middleware

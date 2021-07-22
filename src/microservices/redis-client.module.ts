@@ -1,19 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { EventsModule } from 'src/executor-events/events.module';
 import { RedisController } from 'src/microservices/redis-client.controller';
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: 'REDIS_SERVICE',
-        transport: Transport.REDIS,
-        options: {
-          url: `redis://${process.env.REDIS_HOST || ''}:6379`,
-        },
-      },
-    ]),
-  ],
+  imports: [EventsModule],
   controllers: [RedisController],
 })
 export class RedisModule {}

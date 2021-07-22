@@ -1,35 +1,18 @@
-import { Controller, Get, Inject, Injectable } from '@nestjs/common';
-import {
-  ClientProxy,
-  EventPattern,
-  MessagePattern,
-  Payload,
-} from '@nestjs/microservices';
+import { Controller } from '@nestjs/common';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { EventsGateway } from 'src/executor-events/events.gateway';
+
+type CodeExecuteResult = [string, boolean];
 
 @Controller()
 export class RedisController {
-  constructor(
-    @Inject('REDIS_SERVICE')
-    private readonly client: ClientProxy,
-  ) {}
-
-  // async onModuleInit(): Promise<void> {
-  //   console.log('connect to redis service');
-  //   await this.client.connect();
-  // }
-  // async onApplicationBootstrap(): Promise<void> {
-  //   await this.client.connect();
-  //   console.log('connecteed');
-  // }
-
-  @Get('/save')
-  testSave(): void {
-    // console.log(JSON.stringify(this.client, null, 2));
-    this.client.emit('javascript-execute-result', 'hello');
-  }
+  constructor(private readonly eventGateway: EventsGateway) {}
 
   @MessagePattern('javascript-execute-result')
-  getExecuteResult(@Payload() data: any): void {
-    console.log(data);
+  getExecuteResult(@Payload() data: string): void {
+    // First part is user identifier socket channel
+    const [socketChannel, result] = JSON.parse(data) as CodeExecuteResult;
+
+    this.eventGateway.getSocketServer().emit(socketChannel, result);
   }
 }
