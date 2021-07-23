@@ -6,7 +6,7 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 
-@WebSocketGateway({ port: 80, namespace: 'code-execute-events', cors: '*' })
+@WebSocketGateway({ port: 80, cors: '*' })
 export class EventsGateway {
   @WebSocketServer()
   private readonly server!: Server;
@@ -15,8 +15,10 @@ export class EventsGateway {
     return this.server;
   }
 
+  // Using static gonna break this handler (not execute)
   @SubscribeMessage('events')
-  static handleEvent(@MessageBody() data: string): any {
+  // eslint-disable-next-line class-methods-use-this
+  handleEvent(@MessageBody() data: string): any {
     console.log(data);
     // return { event: 'events', data };
     return data;
