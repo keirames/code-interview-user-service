@@ -1,4 +1,10 @@
 services:
+  redis:
+    image: redis:6.2.4
+    ports:
+      - '6380:6379'
+    networks:
+      - default
   database:
     image: postgres
     environment:
@@ -18,6 +24,7 @@ services:
       dockerfile: Dockerfile.dev
     depends_on:
       - database
+      - redis
     environment:
       DATABASE_HOST: database
       DATABASE_PORT: ${DATABASE_PORT}
@@ -25,6 +32,7 @@ services:
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_NAME: ${DATABASE_NAME}
       KAFKA_HOST: kafka
+      REDIS_HOST: redis
     ports:
       - '${APP_PORT}:3001'
     networks:

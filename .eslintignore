@@ -2,4 +2,4 @@
 .eslintrc.js
 
 src/migrations/*.ts
-tools/scripts/seed/*.js
+tools/scripts/**/*.js

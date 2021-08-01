@@ -13,6 +13,9 @@ import { SubscriptionsModule } from 'src/features/subscriptions/subscriptions.mo
 import { ChallengesModule } from 'src/features/challenges/challenges.module';
 import { ContestsModule } from 'src/features/contests/contests.module';
 import { SubmissionsModule } from 'src/features/submissions/submissions.module';
+import { JavascriptProducerModule } from 'src/microservices/producer/javascript-producer.module';
+import { EventsModule } from 'src/executor-events/events.module';
+import { RedisModule } from 'src/microservices/redis-client.module';
 import TypeormConfig from '../ormconfig';
 
 @Module({
@@ -29,6 +32,9 @@ import TypeormConfig from '../ormconfig';
     ContestsModule,
     SubmissionsModule,
     TestCasesModule,
+    JavascriptProducerModule,
+    EventsModule,
+    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService],

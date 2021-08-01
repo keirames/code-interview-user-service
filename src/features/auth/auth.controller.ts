@@ -11,17 +11,17 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-  @MessagePattern({ cmd: 'validateUser' })
-  async validateUser(email: string): Promise<boolean> {
-    const isEmailValid = await this.userAccountsService.isEmailAlreadyTaken(
-      email,
-    );
-    return isEmailValid;
-  }
+  // @MessagePattern({ cmd: 'validateUser' })
+  // async validateUser(email: string): Promise<boolean> {
+  //   const isEmailValid = await this.userAccountsService.isEmailAlreadyTaken(
+  //     email,
+  //   );
+  //   return isEmailValid;
+  // }
 
-  @MessagePattern({ cmd: 'signInWithExternalProvider' })
-  async signInWithExternalProvider() {
-    await this.authService.signInWithExternalProvider(AuthProvider.Google);
-    return { name: 'hehe', id: 1 };
-  }
+  // @MessagePattern({ cmd: 'signInWithExternalProvider' })
+  // async signInWithExternalProvider() {
+  //   await this.authService.signInWithExternalProvider(AuthProvider.Google);
+  //   return { name: 'hehe', id: 1 };
+  // }
 }
