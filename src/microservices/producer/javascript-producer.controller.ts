@@ -31,9 +31,24 @@ export class JavascriptProducerController {
     const client = this.client.createClient<Kafka>();
     const producer = client.producer();
     await producer.connect();
+
+    const deliverContent = {
+      user: {
+        id: 123,
+      },
+      testInput: [
+        [1, 2, 3, 4],
+        [1, 0, 0, 0, 1],
+      ],
+      testAssertion: [
+        'function(assert, x) { return assert.equal(x, 10); }',
+        'function(assert, x) { return assert.equal(x, 2); }',
+      ],
+    };
+
     const result = await producer.send({
       topic: 'javascript',
-      messages: [{ value: text }],
+      messages: [{ value: JSON.stringify(deliverContent) }],
     });
     await producer.disconnect();
     return JSON.stringify(result);

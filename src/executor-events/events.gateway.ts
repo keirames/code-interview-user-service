@@ -23,4 +23,13 @@ export class EventsGateway {
     // return { event: 'events', data };
     return data;
   }
+
+  // Using static gonna break this handler (not execute)
+  @SubscribeMessage('code-execute-result')
+  // eslint-disable-next-line class-methods-use-this
+  handleCodeExecutorEvents(@MessageBody() data: string): any {
+    console.log(data);
+    // return { event: 'events', data };
+    // return data;
+  }
 }

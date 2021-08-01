@@ -26,4 +26,9 @@ export class AppController {
   // getExecuteResult(@Payload() data: any): void {
   //   console.log(data);
   // }
+
+  @Get('/ping')
+  ping(): string {
+    return 'hello client';
+  }
 }
