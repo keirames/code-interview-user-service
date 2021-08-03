@@ -4,12 +4,15 @@
 import { Controller, Get, Inject, Param } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 import { Kafka } from 'kafkajs';
+import { TestCasesService } from 'src/features/test-cases/test-cases.service';
 
 @Controller()
 export class JavascriptProducerController {
   constructor(
     @Inject('CODE_EXECUTOR_EVENTS_PRODUCER')
     private readonly client: ClientKafka,
+
+    private readonly testCasesService: TestCasesService,
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/require-await
@@ -32,6 +35,10 @@ export class JavascriptProducerController {
     const producer = client.producer();
     await producer.connect();
 
+    const testCases = await this.testCasesService.findByChallengeId(10);
+
+    const testAssertion = testCases.map((tc) => tc.testString);
+
     const deliverContent = {
       user: {
         id: 123,
@@ -40,10 +47,7 @@ export class JavascriptProducerController {
         [1, 2, 3, 4],
         [1, 0, 0, 0, 1],
       ],
-      testAssertion: [
-        'function(assert, x) { return assert.equal(x, 10); }',
-        'function(assert, x) { return assert.equal(x, 2); }',
-      ],
+      testAssertion,
     };
 
     const result = await producer.send({

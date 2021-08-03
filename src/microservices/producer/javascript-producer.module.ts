@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { TestCasesModule } from 'src/features/test-cases/test-cases.module';
 import { JavascriptProducerController } from 'src/microservices/producer/javascript-producer.controller';
 
 @Module({
@@ -15,6 +16,7 @@ import { JavascriptProducerController } from 'src/microservices/producer/javascr
         },
       },
     ]),
+    TestCasesModule,
   ],
   controllers: [JavascriptProducerController],
 })
