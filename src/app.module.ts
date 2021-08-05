@@ -16,6 +16,7 @@ import { SubmissionsModule } from 'src/features/submissions/submissions.module';
 import { JavascriptProducerModule } from 'src/microservices/producer/javascript-producer.module';
 import { EventsModule } from 'src/executor-events/events.module';
 import { RedisModule } from 'src/microservices/redis-client.module';
+import { TestInputsModule } from 'src/features/test-inputs/test-inputs.module';
 import TypeormConfig from '../ormconfig';
 
 @Module({
@@ -35,6 +36,7 @@ import TypeormConfig from '../ormconfig';
     JavascriptProducerModule,
     EventsModule,
     RedisModule,
+    TestInputsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

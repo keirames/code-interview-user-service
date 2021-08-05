@@ -474,6 +474,17 @@ const testCases = [
       'assert(diffArray(["andesite", "grass", "dirt", "pink wool", "dead shrub"], ["diorite", "andesite", "grass", "dirt", "dead shrub"]).length === 2);',
     challengeId: 1,
   },
+  {
+    text: '',
+    testString: '',
+    challengeId: 2,
+  },
+];
+
+const testInputs = [
+  { input: '[1, 2, 3, 4, 5]', challengeId: 2 },
+  { input: '[2, 2, 3, 4, 5]', challengeId: 2 },
+  { input: '[1, 4, 3, 1, 5]', challengeId: 2 },
 ];
 
 const subscriptions = [

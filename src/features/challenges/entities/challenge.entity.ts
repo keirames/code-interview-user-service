@@ -14,6 +14,7 @@ import { ModifyTime, SubjectIdentifier } from 'src/common/entities';
 import { Contest } from 'src/features/contests/entities';
 import { SolvedChallenge } from 'src/features/challenges/entities/solved-challenge.entity';
 import { LikedChallenge } from 'src/features/challenges/entities/liked-challenge.entity';
+import { TestInput } from 'src/features/test-inputs/entities';
 
 // ? May be put this into another file ?.
 export enum Level {
@@ -63,6 +64,11 @@ export class Challenge {
 
   @OneToMany(() => TestCase, (testCase) => testCase.challenge, { eager: true })
   testCases!: TestCase[];
+
+  @OneToMany(() => TestInput, (testInput) => testInput.challenge, {
+    eager: true,
+  })
+  testInputs!: TestInput[];
 
   @Column({ name: 'contest_id' })
   contestId!: number;
