@@ -476,7 +476,22 @@ const testCases = [
   },
   {
     text: '',
-    testString: '',
+    testString: 'function(assert, x) { return assert.equal(x, 15); }',
+    challengeId: 2,
+  },
+  {
+    text: '',
+    testString: 'function(assert, x) { return assert.equal(x, 16); }',
+    challengeId: 2,
+  },
+  {
+    text: '',
+    testString: 'function(assert, x) { return assert.equal(x, 14); }',
+    challengeId: 2,
+  },
+  {
+    text: '',
+    testString: 'function(assert, x) { return assert.equal(x, 113); }',
     challengeId: 2,
   },
 ];
@@ -485,6 +500,7 @@ const testInputs = [
   { input: '[1, 2, 3, 4, 5]', challengeId: 2 },
   { input: '[2, 2, 3, 4, 5]', challengeId: 2 },
   { input: '[1, 4, 3, 1, 5]', challengeId: 2 },
+  { input: '[10, 100, 1, 1, 1]', challengeId: 2 },
 ];
 
 const subscriptions = [
@@ -508,5 +524,6 @@ module.exports = {
   challenges,
   plans,
   testCases,
+  testInputs,
   subscriptions,
 };

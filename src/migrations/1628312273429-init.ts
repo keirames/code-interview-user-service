@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class init1621612099830 implements MigrationInterface {
-    name = 'init1621612099830'
+export class init1628312273429 implements MigrationInterface {
+    name = 'init1628312273429'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "plans" ("id" SERIAL NOT NULL, "name" character varying(255) NOT NULL, "credits_per_month" integer NOT NULL, "price_per_month" integer NOT NULL, CONSTRAINT "CHK_3336c84042f5d7244d60f8344b" CHECK (credits_per_month >= 0), CONSTRAINT "CHK_bf1f4e6b5650abf3533cbcea52" CHECK (price_per_month >= 0), CONSTRAINT "PK_3720521a81c7c24fe9b7202ba61" PRIMARY KEY ("id"))`);
@@ -15,6 +15,7 @@ export class init1621612099830 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "submissions" ("id" SERIAL NOT NULL, "answer" character varying NOT NULL, "is_passed" boolean NOT NULL, "challenge_id" integer NOT NULL, "user_id" integer NOT NULL, CONSTRAINT "PK_10b3be95b8b2fb1e482e07d706b" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "test_cases" ("id" SERIAL NOT NULL, "text" character varying NOT NULL, "test_string" character varying NOT NULL, "challenge_id" integer NOT NULL, CONSTRAINT "PK_39eb2dc90c54d7a036b015f05c4" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "contests" ("id" SERIAL NOT NULL, "delete_at" TIMESTAMP, "title" character varying(50) NOT NULL, "slug" character varying(255) NOT NULL, "create_at" TIMESTAMP NOT NULL DEFAULT now(), "update_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_836d4d4819df541cc6f7cf1f217" UNIQUE ("title"), CONSTRAINT "UQ_9d34d0f5b13c895c8038b97e5b2" UNIQUE ("slug"), CONSTRAINT "PK_0b8012f5cf6f444a52179e1227a" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "test_inputs" ("id" SERIAL NOT NULL, "input" text NOT NULL, "challenge_id" integer NOT NULL, CONSTRAINT "PK_8f87a4dbe4afa0684dd97e24023" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "challenges_level_enum" AS ENUM('easy', 'medium', 'hard')`);
         await queryRunner.query(`CREATE TABLE "challenges" ("id" SERIAL NOT NULL, "problem" text NOT NULL, "input_format" text NOT NULL, "output_format" text NOT NULL, "challenge_seed" text NOT NULL, "level" "challenges_level_enum" NOT NULL DEFAULT 'easy', "points" integer NOT NULL DEFAULT '0', "is_premium" boolean NOT NULL DEFAULT false, "delete_at" TIMESTAMP, "contest_id" integer NOT NULL, "title" character varying(50) NOT NULL, "slug" character varying(255) NOT NULL, "create_at" TIMESTAMP NOT NULL DEFAULT now(), "update_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_9b25c2ccb1459524dd346e78dfb" UNIQUE ("title"), CONSTRAINT "UQ_700e063e7f395178eab9a6d1db5" UNIQUE ("slug"), CONSTRAINT "CHK_03ff42f3f8ca4d85fe54d6501b" CHECK (points >= 0), CONSTRAINT "PK_1e664e93171e20fe4d6125466af" PRIMARY KEY ("id"))`);
         await queryRunner.query(`ALTER TABLE "subscriptions" ADD CONSTRAINT "FK_e45fca5d912c3a2fab512ac25dc" FOREIGN KEY ("plan_id") REFERENCES "plans"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -29,11 +30,13 @@ export class init1621612099830 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "submissions" ADD CONSTRAINT "FK_d69c24c4dfe1387c7251a9a7bcd" FOREIGN KEY ("challenge_id") REFERENCES "challenges"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "submissions" ADD CONSTRAINT "FK_fca12c4ddd646dea4572c6815a9" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "test_cases" ADD CONSTRAINT "FK_11899fac9c02de6068f200c2f74" FOREIGN KEY ("challenge_id") REFERENCES "challenges"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "test_inputs" ADD CONSTRAINT "FK_a19f71dd0639f0bc3aabae9abc5" FOREIGN KEY ("challenge_id") REFERENCES "challenges"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "challenges" ADD CONSTRAINT "FK_47911910246faf445c2523cad1d" FOREIGN KEY ("contest_id") REFERENCES "contests"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE "challenges" DROP CONSTRAINT "FK_47911910246faf445c2523cad1d"`);
+        await queryRunner.query(`ALTER TABLE "test_inputs" DROP CONSTRAINT "FK_a19f71dd0639f0bc3aabae9abc5"`);
         await queryRunner.query(`ALTER TABLE "test_cases" DROP CONSTRAINT "FK_11899fac9c02de6068f200c2f74"`);
         await queryRunner.query(`ALTER TABLE "submissions" DROP CONSTRAINT "FK_fca12c4ddd646dea4572c6815a9"`);
         await queryRunner.query(`ALTER TABLE "submissions" DROP CONSTRAINT "FK_d69c24c4dfe1387c7251a9a7bcd"`);
@@ -48,6 +51,7 @@ export class init1621612099830 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "subscriptions" DROP CONSTRAINT "FK_e45fca5d912c3a2fab512ac25dc"`);
         await queryRunner.query(`DROP TABLE "challenges"`);
         await queryRunner.query(`DROP TYPE "challenges_level_enum"`);
+        await queryRunner.query(`DROP TABLE "test_inputs"`);
         await queryRunner.query(`DROP TABLE "contests"`);
         await queryRunner.query(`DROP TABLE "test_cases"`);
         await queryRunner.query(`DROP TABLE "submissions"`);

@@ -7,6 +7,7 @@ const {
   challenges,
   testCases,
   subscriptions,
+  testInputs,
 } = require('./mix-data');
 
 const startSeeding = async () => {
@@ -80,6 +81,15 @@ const startSeeding = async () => {
         client.query(
           'INSERT INTO test_cases(text, test_string, challenge_id) VALUES($1, $2, $3)',
           Object.values(tc),
+        ),
+      ),
+    );
+
+    await Promise.all(
+      testInputs.map((ti) =>
+        client.query(
+          'INSERT INTO test_inputs(input, challenge_id) VALUES($1, $2)',
+          Object.values(ti),
         ),
       ),
     );
