@@ -4,7 +4,7 @@
 import { Controller, Get, Inject, Param } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 import { Kafka } from 'kafkajs';
-import { TestCasesService } from 'src/features/test-cases/test-cases.service';
+import { JavascriptProducerService } from 'src/microservices/producer/javascript-producer.service';
 
 @Controller()
 export class JavascriptProducerController {
@@ -12,7 +12,7 @@ export class JavascriptProducerController {
     @Inject('CODE_EXECUTOR_EVENTS_PRODUCER')
     private readonly client: ClientKafka,
 
-    private readonly testCasesService: TestCasesService,
+    private readonly javascriptProducerService: JavascriptProducerService,
   ) {}
 
   // eslint-disable-next-line @typescript-eslint/require-await
@@ -31,31 +31,9 @@ export class JavascriptProducerController {
   // eslint-disable-next-line @typescript-eslint/require-await
   @Get('/hi/:text')
   async sayHi(@Param('text') text: string): Promise<string> {
-    const client = this.client.createClient<Kafka>();
-    const producer = client.producer();
-    await producer.connect();
+    const result = await this.javascriptProducerService.executeCode();
 
-    const testCases = await this.testCasesService.findByChallengeId(10);
-
-    const testAssertion = testCases.map((tc) => tc.testString);
-
-    const deliverContent = {
-      user: {
-        id: 123,
-      },
-      testInput: [
-        [1, 2, 3, 4],
-        [1, 0, 0, 0, 1],
-      ],
-      testAssertion,
-    };
-
-    const result = await producer.send({
-      topic: 'javascript',
-      messages: [{ value: JSON.stringify(deliverContent) }],
-    });
-    await producer.disconnect();
-    return JSON.stringify(result);
+    return result;
   }
 
   @Get('/')
