@@ -9,8 +9,9 @@ interface DeliveryContent {
   user: {
     id: number;
   };
-  testInput: string[];
-  testAssertion: string[];
+  userListeningChannel: string;
+  testInputs: string[];
+  testAssertions: string[];
 }
 
 @Injectable()
@@ -23,7 +24,9 @@ export class JavascriptProducerService {
     private readonly testInputsService: TestInputsService,
   ) {}
 
-  private async generateDeliveryContent(): Promise<DeliveryContent> {
+  private async generateDeliveryContent(
+    uniqueEventName: string,
+  ): Promise<DeliveryContent> {
     const testCases = await this.testCasesService.findByChallengeId(2);
 
     const transformedTestAssertions = testCases.map((tc) => tc.testString);
@@ -32,19 +35,20 @@ export class JavascriptProducerService {
 
     const transformedTestInputs = testInputs.map((ti) => ti.input);
 
-    const deliverContent = {
+    const deliverContent: DeliveryContent = {
       user: {
         id: 123,
       },
-      testInput: transformedTestInputs,
-      testAssertion: transformedTestAssertions,
+      userListeningChannel: uniqueEventName,
+      testInputs: transformedTestInputs,
+      testAssertions: transformedTestAssertions,
     };
 
     return deliverContent;
   }
 
-  async executeCode(): Promise<string> {
-    const deliveryContent = await this.generateDeliveryContent();
+  async executeCode(uniqueEventName: string): Promise<string> {
+    const deliveryContent = await this.generateDeliveryContent(uniqueEventName);
 
     const client = this.client.createClient<Kafka>();
     const producer = client.producer();

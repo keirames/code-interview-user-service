@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Controller, Get, Inject, Param } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 import { Kafka } from 'kafkajs';
 import { JavascriptProducerService } from 'src/microservices/producer/javascript-producer.service';
+
+interface SubmitAnswerRequest {
+  uniqueEventName: string;
+  answer: string;
+}
 
 @Controller()
 export class JavascriptProducerController {
@@ -29,9 +34,13 @@ export class JavascriptProducerController {
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
-  @Get('/hi/:text')
-  async sayHi(@Param('text') text: string): Promise<string> {
-    const result = await this.javascriptProducerService.executeCode();
+  @Post('/submit-answer')
+  async sayHi(
+    @Param() submitAnswerRequest: SubmitAnswerRequest,
+  ): Promise<string> {
+    const result = await this.javascriptProducerService.executeCode(
+      submitAnswerRequest.uniqueEventName,
+    );
 
     return result;
   }
